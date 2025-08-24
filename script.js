@@ -1,41 +1,49 @@
-//your JS code here. If required.
 let form = document.querySelector('#userForm');
 
 form.addEventListener("submit", ValidateForm);
 
-function ValidateForm(e){
-	e.preventDefault();
+function ValidateForm(e) {
+  e.preventDefault();
 
-	let userName = form.elements["name"].value.trim();
-	let userAge = form.elements["age"].value.trim();
+  let userName = form.elements["name"].value.trim();
+  let userAge = parseInt(form.elements["age"].value.trim(), 10);
 
-	if(!userName || !userAge){
-		alert("Please enter valid details");
-		return;
-	}
+  if (!userName || isNaN(userAge)) {
+    alert("Please enter valid details");
+    return;
+  }
 
-	// create a promise
-	const submitForm = new Promise((resolve, reject) => {
+  PromiseLogic(userName, userAge);
+}
 
-		if(userName === "John" && userAge > 18){
-			resolve(`Welcome, ${userName}. You can vote`);
-		
-		}else if (userName === 'Doe' && userAge < 18){
-			reject(`Oh Sorry, ${userName}. You aren't old enough`);
-	})
+function PromiseLogic(userName, userAge) {
+  // create a promise
+  const submitForm = new Promise((resolve, reject) => {
+    if (userName === "John" && userAge > 18) {
+      resolve(`Welcome, ${userName}. You can vote`);
+    } else if (userAge < 18 || userName === "Doe") {
+      reject(`Oh Sorry, ${userName}. You aren't old enough`);
+    } else {
+      reject(`Invalid credentials for ${userName}`);
+    }
+  });
 
-	// Handle Promise Outcome
-	submitForm
-		.then((message) => {
-			setTimeout(() => {
-				alert(message);
-				form.submit();
-			}, 4000);
-		})
-		.catch(() => {
-			setTimeout(() => {
-				alert(message);
-				form.submit();
-			}, 4000);
-		})
+  HandlePromise(submitForm);
+}
+
+function HandlePromise(submitForm) {
+  // Handle Promise Outcome
+  submitForm
+    .then((message) => {
+      setTimeout(() => {
+        alert(message);
+        form.submit(); // submit form after success
+      }, 4000);
+    })
+    .catch((error) => {
+      setTimeout(() => {
+        alert(error);
+        // form not submitted on error
+      }, 4000);
+    });
 }
