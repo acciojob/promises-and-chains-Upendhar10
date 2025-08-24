@@ -20,9 +20,9 @@ function PromiseLogic(userName, userAge) {
   // create a promise
   const submitForm = new Promise((resolve, reject) => {
     if (userName === "John" && userAge > 18) {
-      resolve(`Welcome, ${userName}. You can vote`);
+      resolve(`Welcome, John. You can vote`);
     } else if (userAge < 18 || userName === "Doe") {
-      reject(`Oh Sorry, ${userName}. You aren't old enough`);
+      reject(`Oh Sorry, Doe. You aren't old enough`);
     } else {
       reject(`Invalid credentials for ${userName}`);
     }
