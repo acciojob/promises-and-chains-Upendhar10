@@ -22,7 +22,7 @@ function ValidateForm(e){
 		
 		}else if (userName === 'Doe' && userAge < 18){
 			reject(`Oh Sorry, ${userName}. You aren't old enough`);
-	}
+	})
 
 	// Handle Promise Outcome
 	submitForm
